@@ -17,34 +17,38 @@ def event_search():
     try:
         request_api = requests.get(f"https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode={zipcode_number}&distance=25&API_KEY=52428263-E48B-48AA-A395-7EC72BC6BC5C")
         data_api = json.loads(request_api.content)
-        #title label
-        label_title = Label(root, text=f"Air Condition Now at {search_entry.get()}",font=("verdana", 15))
-        label_title.grid(row=1, column=0, columnspan=7,sticky=W+E, pady=10)
-        for i in range(len(data_api)):
-            txt_area = data_api[i]["ReportingArea"]
-            txt_AQI = "AQI " + str(data_api[i]["AQI"])
-            txt_category = data_api[i]["Category"]["Name"]
+        if data_api == []:
+            messagebox.showwarning("Response API", "Data Empty.")
+        
+        else:
+            #title label
+            label_title = Label(root, text=f"Air Condition Now at {search_entry.get()}",font=("verdana", 15))
+            label_title.grid(row=1, column=0, columnspan=7,sticky=W+E, pady=10)
+            for i in range(len(data_api)):
+                txt_area = data_api[i]["ReportingArea"]
+                txt_AQI = "AQI " + str(data_api[i]["AQI"])
+                txt_category = data_api[i]["Category"]["Name"]
 
-            if txt_category == "Good":
-                bg_color = "#008000"
-            elif txt_category == "Moderate":
-                bg_color = "#FFFF00"
-            elif txt_category == "Unhealthy for Sensitive Groups":
-                bg_color = "#FFA500"
-            elif txt_category == "Unhealthy":
-                bg_color = "#FF0000"
-            elif txt_category == "Hazardous":
-                bg_color = "#800080"
+                if txt_category == "Good":
+                    bg_color = "#008000"
+                elif txt_category == "Moderate":
+                    bg_color = "#FFFF00"
+                elif txt_category == "Unhealthy for Sensitive Groups":
+                    bg_color = "#FFA500"
+                elif txt_category == "Unhealthy":
+                    bg_color = "#FF0000"
+                elif txt_category == "Hazardous":
+                    bg_color = "#800080"
 
-            frame_data = Frame(root, background=bg_color, borderwidth=5)
-            frame_data.grid(row=row_frame+i,column=0, columnspan=7, padx=10,pady=10,ipadx=30)
+                frame_data = Frame(root, background=bg_color, borderwidth=5)
+                frame_data.grid(row=row_frame+i,column=0, columnspan=7, padx=10,pady=10,ipadx=30)
 
-            label_area = Label(frame_data,text=txt_area, background=bg_color,width=10, padx=15, pady=5)
-            label_AQI = Label(frame_data, text=txt_AQI, background=bg_color, width=10, padx=15, pady=5)
-            label_category = Label(frame_data, text=txt_category, background=bg_color, width=10, padx=15, pady=5)
-            label_area.grid(row=i, column=0)
-            label_AQI.grid(row=i, column=1)
-            label_category.grid(row=i, column=2)
+                label_area = Label(frame_data,text=txt_area, background=bg_color,width=10, padx=15, pady=5)
+                label_AQI = Label(frame_data, text=txt_AQI, background=bg_color, width=10, padx=15, pady=5)
+                label_category = Label(frame_data, text=txt_category, background=bg_color, width=10, padx=15, pady=5)
+                label_area.grid(row=i, column=0)
+                label_AQI.grid(row=i, column=1)
+                label_category.grid(row=i, column=2)
 
     except Exception as e:
         messagebox.showerror("data","data not found")
