@@ -1,0 +1,5 @@
+[
+{"DateObserved":"2022-10-07 ","HourObserved":16,"LocalTimeZone":"EST","ReportingArea":"Atlanta","StateCode":"GA","Latitude":33.65,"Longitude":-84.43,"ParameterName":"O3","AQI":80,"Category":{"Number":2,"Name":"Moderate"}},
+{"DateObserved":"2022-10-07 ","HourObserved":16,"LocalTimeZone":"EST","ReportingArea":"Atlanta","StateCode":"GA","Latitude":33.65,"Longitude":-84.43,"ParameterName":"PM2.5","AQI":54,"Category":{"Number":2,"Name":"Moderate"}},
+{"DateObserved":"2022-10-07 ","HourObserved":16,"LocalTimeZone":"EST","ReportingArea":"Atlanta","StateCode":"GA","Latitude":33.65,"Longitude":-84.43,"ParameterName":"PM10","AQI":29,"Category":{"Number":1,"Name":"Good"}}
+]

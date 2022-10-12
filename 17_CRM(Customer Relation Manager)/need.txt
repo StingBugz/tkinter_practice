@@ -1,0 +1,54 @@
+# f_name
+# l_name
+# address_1
+# address_2
+# city
+# state
+# zipcode
+# country
+# phone
+# email
+# username
+# payment_method
+# discount_code
+# price_paid
+
+# my_cursor.execute("CREATE DATABASE test")
+
+#check database
+# my_cursor.execute("SHOW DATABASES")
+# for db in my_cursor:
+#     print(db)
+
+#create table
+# my_cursor.execute("""CREATE TABLE customer_data(
+#     f_name VARCHAR(255),
+#     l_name VARCHAR(255),
+#     zipcode INT(10),
+#     price DECIMAL(10,2),
+#     user_id INT AUTO_INCREMENT PRIMARY KEY
+# )""")
+
+# #Drop the table
+# my_cursor.execute("DROP TABLE customer_data")
+
+'''#update table
+my_cursor.execute("""ALTER TABLE customer_data ADD(
+    email VARCHAR(255),
+    addres_1 VARCHAR(255),
+    adress_2 VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    country VARCHAR(255),
+    phone VARCHAR(255),
+    payment_method VARCHAR(255),
+    discount_code VARCHAR(255)
+)""")'''
+# #rename column
+# my_cursor.execute("ALTER TABLE customer_data RENAME COLUMN addres_1 TO address_1")
+
+#order the user_id to the first place in those table
+# my_cursor.execute("ALTER TABLE customer_data MODIFY COLUMN user_id INT FIRST")
+
+# #move field after custom
+# my_cursor.execute("ALTER TABLE customer_data MODIFY COLUMN price DECIMAL(10,2) AFTER phone ")
