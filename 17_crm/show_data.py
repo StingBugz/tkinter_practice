@@ -121,11 +121,15 @@ def show_data_window(data:list):
                     print("update data success")
                 except Exception as e:
                     raise Exception from e
+            #event quit
+            def event_quit():
+                update.destroy()
+                rootShowData.destroy()
             #btnsave
             btn_save = Button(update, text="Save",width=10, command=lambda:event_save(id))
             btn_save.grid(row=14,column=0, pady=10,sticky=E)
             #btnquit
-            btn_quit = Button(update, text="Quit", width=10,command=update.destroy)
+            btn_quit = Button(update, text="Quit", width=10,command=event_quit)
             btn_quit.grid(row=14,column=1, pady=10, sticky=E)
         else:
             messagebox.showerror("DatabaseError", "Search Using User ID.")
@@ -163,7 +167,7 @@ def show_data_window(data:list):
         except Exception as e:
             raise Exception from e
 
-        
+
     #frame for table data list
     frame_list_data = Frame(rootShowData)
     frame_list_data.grid(row=1,column=0, padx=10, pady=10, columnspan=3)
