@@ -1,19 +1,22 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 from tkinter.font import BOLD
 import mysql.connector
 import connectdb
+import show_data
 
 root = Tk()
 root.title("Sign Up")
 icon_app = PhotoImage(file="./source/favicon/user.png")
 root.tk.call("wm","iconphoto",root._w, icon_app)
-root.geometry("400x600")
+root.geometry("400x600+0+100")
 
+#submit
 def event_submit():
     try:
         field_customer_data = "f_name, l_name, zipcode, email, address_1, address_2, city, state, country, phone, price, payment_method, discount_code"
-        data = connectdb.conn(f"""INSERT INTO customer_data({field_customer_data}) VALUES(
+        data = connectdb.conn(f"""INSERT INTO customer_data ({field_customer_data}) VALUES(
             '{f_name_entry.get()}',
             '{l_name_entry.get()}',
             {zipcode_entry.get()},
@@ -25,27 +28,17 @@ def event_submit():
             '{country_entry.get()}',
             '{phone_entry.get()}',
             '{price_entry.get()}',
-            '{payment_method_entry.get()}',
+            '{payment_method_combo.get()}',
             '{discount_code_entry.get()}'
         )""")
-        f_name_entry.delete(0,END)
-        l_name_entry.delete(0,END)
-        zipcode_entry.delete(0,END)
-        email_entry.delete(0,END)
-        address1_entry.delete(0,END)
-        address2_entry.delete(0,END)
-        city_entry.delete(0,END)
-        state_entry.delete(0,END)
-        country_entry.delete(0,END)
-        phone_entry.delete(0,END)
-        price_entry.delete(0,END)
-        payment_method_entry.delete(0,END)
-        discount_code_entry.delete(0,END)
+        event_clear()
         print("insert data success")
 
     except Exception as e:
         messagebox.showerror("Database", str(e))
         raise Exception("insert data failed") from e
+
+#clear
 def event_clear():
     f_name_entry.delete(0,END)
     l_name_entry.delete(0,END)
@@ -58,8 +51,15 @@ def event_clear():
     country_entry.delete(0,END)
     phone_entry.delete(0,END)
     price_entry.delete(0,END)
-    payment_method_entry.delete(0,END)
+    payment_method_combo.set("credit")
     discount_code_entry.delete(0,END)
+
+#show data
+def event_show_data():
+    responsedb = connectdb.read("SELECT * FROM customer_data")
+    show_data.show_data(responsedb)
+
+
 
 #title
 lb_title = Label(root, text="Sign Up", font=("helvetica",25,BOLD))
@@ -68,9 +68,6 @@ lb_title.grid(row=0, column=0, pady=10,sticky=W+E, columnspan=2)
 #frames
 frame_input = Frame(root, borderwidth=0, highlightthickness=0)
 frame_input.grid(row=1,column=0)
-
-frame_button = Frame(root, borderwidth=0, highlightthickness=0)
-frame_button.grid(row=2,column=0, pady=10, padx=30)
 
 #create label for inserting data
 f_name_lb = Label(frame_input, text="First Name").grid(row=0,column=0,padx=10, pady=5, sticky=W)
@@ -99,7 +96,9 @@ state_entry = Entry(frame_input)
 country_entry = Entry(frame_input)
 phone_entry = Entry(frame_input)
 price_entry = Entry(frame_input)
-payment_method_entry = Entry(frame_input)
+payment_method_combo = ttk.Combobox(frame_input, values=["credit","cash"], width=26)
+payment_method_combo.set("credit")
+payment_method_combo.config(state="readonly")
 discount_code_entry = Entry(frame_input)
 
 #place on grid
@@ -114,15 +113,23 @@ state_entry.grid(row=7,column=1,padx=15,pady=5,ipadx=30)
 country_entry.grid(row=8,column=1,padx=15,pady=5,ipadx=30)
 phone_entry.grid(row=9,column=1,padx=15,pady=5,ipadx=30)
 price_entry.grid(row=10,column=1,padx=15,pady=5,ipadx=30)
-payment_method_entry.grid(row=11,column=1,padx=15,pady=5,ipadx=30)
+payment_method_combo.grid(row=11,column=1,padx=15,pady=5)
 discount_code_entry.grid(row=12,column=1,padx=15,pady=5,ipadx=30)
 
-#button submit
-btn_submit = Button(frame_button, text="Submit", command=event_submit)
-btn_clear = Button(frame_button, text="Clear Field", command=event_clear)
+#frame button
+frame_button = Frame(root, borderwidth=0, highlightthickness=0)
+frame_button.grid(row=2,column=0, pady=10,padx=10, sticky=E)
+
+#button
+btn_submit = Button(frame_button, text="Submit",width=10, command=event_submit)
+btn_clear = Button(frame_button, text="Clear Field",width=10, command=event_clear)
+btn_show_data = Button(frame_button, text="Show Data",width=10, command=event_show_data)
+btn_quit = Button(frame_button, text="Quit",width=10, command=root.quit)
 
 #place button on grid
-btn_submit.grid(row=0, column=0, padx=10)
-btn_clear.grid(row=0, column=1,padx=10)
+btn_submit.grid(row=0, column=0,padx=(0,5), pady=3)
+btn_clear.grid(row=0, column=1,padx=(0,5), pady=3)
+btn_show_data.grid(row=1, column=0,padx=(0,5))
+btn_quit.grid(row=1, column=1,padx=(0,5))
 
 root.mainloop()

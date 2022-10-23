@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./7_gerobak_fried_chicken"
+    ]
+}

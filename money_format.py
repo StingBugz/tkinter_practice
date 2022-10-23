@@ -1,4 +1,4 @@
-a = 5000000000000.00
+a = 52123562.00
 
 def formatrupiah(value):
     y = str(value)
@@ -10,9 +10,9 @@ def formatrupiah(value):
         p = y[-3:]
         q = y[:-3] 
         value = formatrupiah(q) + "." + p
-        print(p)
-        print(q)
-        print()
+        # print(p)
+        # print(q)
+        # print()
         return value
 formated = formatrupiah(int(a))
 print(formated)

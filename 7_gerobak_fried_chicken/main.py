@@ -84,9 +84,9 @@ frame_btn = Frame(root, borderwidth=0, highlightthickness=0)
 frame_btn.grid(row=2, column=0)
 
 #button
-qt_lbl = Label(frame_btn, text="Jumlah Pesanan", font=("helvetica", 10)) 
+qt_lbl = Label(frame_btn, text="Jumlah Pesanan", font=("helvetica", 10, BOLD)) 
 qt_entry = Entry(frame_btn, justify="center")
-name_lbl = Label(frame_btn, text="Nama Customer", font=("helvetica",10))
+name_lbl = Label(frame_btn, text="Nama Customer", font=("helvetica",10, BOLD))
 name_entry = Entry(frame_btn, justify="center")
 name_entry.focus_set()
 btn_pesan = Button(frame_btn, text="PESAN",width=15,height=2,background="#a00000",foreground="#fff800",activebackground="#fdf25d",activeforeground="#a00000", command=event_buat_pesan)

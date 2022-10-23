@@ -12,12 +12,9 @@ def list_pesanan(dict:dict):
         showData.resizable(0,0)
 
         #fungsi delete data
-        def delete_data():
-            pass
-        #buat refresh data
-        def refresh_data():
-            list_pesanan()
-            showData.destroy(dict)
+        def reset_data():
+            dict.clear()
+            showData.destroy()
     #title
         lb_title = Label(showData, text="Data Pesanan", font=("helvetica", 20, BOLD))
         lb_title.grid(row=0,column=0,pady=(10,0),sticky=W+E)
@@ -73,10 +70,9 @@ def list_pesanan(dict:dict):
             #frame button
             frame_btn = Frame(showData, borderwidth=0,highlightthickness=0)
             frame_btn.grid(row=2, column=0, padx=10,pady=5, sticky=W+E)
-            btn_delete = Button(frame_btn, text="Reset",command=delete_data)
-            btn_refresh = Button(frame_btn, text="Refresh",command=refresh_data)
-            btn_delete.grid(row=0,column=0)
-            btn_refresh.grid(row=0,column=1)
+            btn_reset = Button(frame_btn, text="Reset",width=15,height=2,background="#a00000",foreground="#fff800",command=reset_data)
+            btn_reset.grid(row=0,column=0)
+            
     
     except Exception as e:
         messagebox.showerror("Error",str(e))

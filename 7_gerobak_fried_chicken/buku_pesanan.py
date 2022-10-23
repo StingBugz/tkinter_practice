@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.font import BOLD
-
+from tkinter import ttk
 
 def buku_pesanan(qt:int, name:str):
     jenis_up = []
@@ -15,13 +15,13 @@ def buku_pesanan(qt:int, name:str):
         bukuPesan.resizable(0,0) 
 
         def event_tulis_pesan():
-            jenis_up.append(jenis.get())
+            jenis_up.append(jenis_drop.get())
             qt_up.append(qt_entry.get())
-            if jenis.get()=="Dada":
+            if jenis_drop.get()=="Dada":
                 harga_up.append(8000 * int(qt_entry.get())) 
-            elif jenis.get()=="Paha":
+            elif jenis_drop.get()=="Paha":
                 harga_up.append(7000 * int(qt_entry.get()))
-            elif jenis.get()=="Sayap":
+            elif jenis_drop.get()=="Sayap":
                 harga_up.append(5000 * int(qt_entry.get())) 
             else:
                 harga_up.append(0 * int(qt_entry.get()))
@@ -29,9 +29,7 @@ def buku_pesanan(qt:int, name:str):
             bukuPesan.quit()
             bukuPesan.destroy()   
         
-        jenis_list = ["Dada","Paha","Sayap"]
-        jenis = StringVar()
-        jenis.set(jenis_list[0])
+        jenis = ["Dada","Paha","Sayap"]
 
         title_lb = Label(bukuPesan, text=f"Pesanan {i+1}", font=("helvetica", 20, BOLD))
         title_lb.grid(row=0, column=0, padx=35, pady=(10,0))
@@ -40,8 +38,9 @@ def buku_pesanan(qt:int, name:str):
 
         lb_jenis_drop = Label(bukuPesan, text="Bagian Ayam", font=("helvetica",12, BOLD))
         lb_jenis_drop.grid(row=2, column=0, pady=(15,0))
-        jenis_drop = OptionMenu(bukuPesan, jenis, *jenis_list)
-        jenis_drop.grid(row=3, column=0, ipadx=15)
+        jenis_drop = ttk.Combobox(bukuPesan, values=jenis, state="readonly")
+        jenis_drop.set("Dada")
+        jenis_drop.grid(row=3, column=0, ipadx=10, padx=5)
 
         qt_lb = Label(bukuPesan, text="Jumlah Potong", font=("helvetica", 12,BOLD))
         qt_entry = Entry(bukuPesan, width=8, justify="center")

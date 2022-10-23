@@ -13,9 +13,7 @@ def money_format(value):
         value = money_format(q) + "." +p
         return value
 
-#masukkan ke pdf untuk print (button)
-def insert_pdf():
-    pass
+
 def struk(dict:dict):
     try:
         for index in dict:
@@ -25,6 +23,18 @@ def struk(dict:dict):
             struk.tk.call("wm","iconphoto", struk._w, icon_app)
             struk.resizable(0,0)
 
+            #masukkan ke pdf untuk print (button)
+            def event_print():
+                try:
+                    if dict == {}:
+                        messagebox.showerror("error", "Data empty")
+                    else:
+                        dict[f"{index}"].clear()
+                        struk.destroy()
+                except Exception as e:
+                    messagebox.showerror("error", str(e))
+                    raise Exception from e
+            
             name = dict[f"{index}"][0]
             jenis = dict[f"{index}"][1]
             harga = dict[f"{index}"][2]
@@ -81,7 +91,7 @@ def struk(dict:dict):
             lb_total.grid(row=1,column=0,padx=5, sticky=W)
             lb_total_data.grid(row=1, column=1,padx=5 ,sticky=W)
             
-            btn_print = Button(frame_final, text="Print",background="#a00000",foreground="#ffffff",activebackground="#fdf25d",activeforeground="#a00000",command=insert_pdf)
+            btn_print = Button(frame_final, text="Print",background="#a00000",foreground="#ffffff",activebackground="#fdf25d",activeforeground="#a00000",command=event_print)
             btn_print.grid(row=2, column=0,pady=10,sticky=W+E)
 
 
